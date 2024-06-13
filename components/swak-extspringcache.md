@@ -1,12 +1,12 @@
 ## 介绍
-swak-spring-cache中的@ExtCacheable 是对spring的 @Cacheable 的扩展， @ExtCacheable 功能更丰富、用起来更舒心。
+swak-extcache中的@ExtCacheable 是对spring的 @Cacheable 的扩展， @ExtCacheable 功能更丰富、用起来更舒心。
 
 通过Spring Boot的autoConfig机制进行加载，无需手动配置，只需要添加如下依赖即可：
 
 ```xml
         <dependency>
             <groupId>io.gitee.mcolley</groupId>
-            <artifactId>swak-extspringcache-boot-starter</artifactId>
+            <artifactId>swak-extcache-boot-starter</artifactId>
         </dependency>
 ```
 

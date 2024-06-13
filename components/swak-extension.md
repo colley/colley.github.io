@@ -1,5 +1,5 @@
 ## 作用
-该组件继承了老swak Framework中的扩展点功能，旨在通过统一的扩展形式来支撑业务的变化。
+提供扩展点能力增加业务动态适配和鲁棒性，旨在通过统一的扩展形式来支撑业务的变化。
 
 ## 原理
 
@@ -39,24 +39,29 @@
 例子：
 
 ```java
-      @Extension(bizId=WhiteListProviderExPt.WHITE_LIST_BIZ_ID)
-      public class DalWhiteListProvider implements WhiteListProviderExPt {
-          private static String WHITE_LIST = "whiteList";
 
-          @Override
-          public Set<String> getConfig(BoundContext resource) {
-              String whiteList = ConfigClient.get(WHITE_LIST);
-              if (StringUtils.isEmpty(whiteList)) {
-                  return EmptyObject.emptySet();
-              }
-              return Sets.newHashSet(Splitter.on(',').splitToList(whiteList));
-          }
-      }
+    public interface StatisticExtPtCalculate extends ExtensionPoint {
+        String BIZ_ID = "calcMode";
+        Double statistic(CalculateResult source, CalcTypeValue calcValue);
+    }
 
-	
-	Set<String> whiteList = extensionExecutor.execute(WhiteListProviderExPt.class,
-			BizScenario.valueOf(WhiteListProviderExPt.WRISK_BIZ_ID),
-			extension -> extension.getConfig(resource));
+    @Extension(bizId = StatisticExtPtCalculate.BIZ_ID, useCase = "TARGET_PERCENT")
+    public class TargetPercentCalculate implements StatisticExtPtCalculate {
+        @Override
+        public Double statistic(CalculateResult source, CalcTypeValue calcValue) {
+            Double target = source.getTarget();
+            Double calcVal = calcValue.getValue();
+            if (Objects.isNull(target) || target.isNaN() || Objects.isNull(calcVal)) {
+                return null;
+            }
+            return BigDecimal.valueOf(target).add(BigDecimal.valueOf(target).multiply(BigDecimal.valueOf(calcVal)).multiply(BASE_PERCENT))
+                    .setScale(4, BigDecimal.ROUND_HALF_UP)
+                    .doubleValue();
+        }
 
-
+        //扩展的方法调用
+        Double value = extensionExecutor.execute(StatisticExtPtCalculate.class,
+			BizScenario.valueOf(StatisticExtPtCalculate.BIZ_ID,useCase),
+			extension -> extension.statistic(resource,calcValue));
+        
  ```

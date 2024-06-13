@@ -9,21 +9,24 @@
         </dependency>
 ```
 
-## application配置
+## Config配置
 
-```properties
-	##数据归档以及历史数据删除###
-	swak.frame.archive.enabled=true
-	swak.frame.archive.config.dataSoruceName=dataSoruceBeanName
-	swak.frame.archive.config.email.host=xxxx
-	swak.frame.archive.config.email.port=25
-	swak.frame.archive.config.email.defaultEncoding=UTF-8
-	swak.frame.archive.config.email.username=xxx
-	swak.frame.archive.config.email.password=xxxxx
-	swak.frame.archive.config.email.senderName=xxx
-	swak.frame.archive.config.email.sender=xxxx
-	swak.frame.archive.config.email.smtpAuth=true
-	swak.frame.archive.config.email.debug=true
+- 支持Clickhouse的冷热归档
+- 支持Mysql的冷热归档
+
+```java
+
+    @Bean
+    public ArchiverProperties archiverProperties(DataSource dataSource) {
+        DynamicRoutingDataSource dynamicRoutingDataSource = (DynamicRoutingDataSource) dataSource;
+        DataSource mysql = dynamicRoutingDataSource.getDataSource("mysql"); 
+        DataSource clickhouse = dynamicRoutingDataSource.getDataSource("click");
+        ArchiverProperties archiverProperties =  new  ArchiverProperties();
+        archiverProperties.setClickhouseDataSource(clickhouse); 
+        archiverProperties.setMysqlDataSource(mysql);
+        archiverProperties.setMonitor(new ArchiveLogMonitor());
+        return archiverProperties;
+    }
 
 ```
 
@@ -40,44 +43,60 @@
 - ArchiveConfig的介绍
 
 ```java
-
-	/** where条件*/
-	private String where = "1=1";
-
-	/** 每次limit取行数据归档处理）*/
-	private Integer limit;
-
-	/** 设置一个事务提交一次的数量. 单条插入和单条删除*/
-	private Integer txnSize;
-
-	/** 是否删除source数据库的相关匹配记录*/
-	private boolean purge = Boolean.TRUE;
-
-	/***是否归档 false=定时删除**/
-	private boolean archive = Boolean.TRUE;
-
-	/** progressSize每次归档限制总条数）*/
-	private Integer progressSize = Integer.MAX_VALUE;
-
-	/**尝试次数**/
-	private Integer retries = 2;
-
-	/** 每次归档了limit个行记录后的休眠1秒（单位为毫秒）*/
-	private Long sleep = 5 * 1000L;
-
-	/**归档的表名***/
-	private String srcTblName;
-
-	/**归档目标表名**/
-	private String desTblName;
-
-	/**是否批次执行**/
-	private boolean bulk = true;
-
-	/**是否发送邮件**/
-	private boolean sendEmail;
-
-	/**邮件接收人,逗号分隔**/
-	private String recipients;
+    /** where条件*/
+    private String where = "1=1";
     
+    /** 每次limit取行数据归档处理）*/
+    private Integer limit;
+    
+    /** 设置一个事务提交一次的数量. 单条插入和单条删除*/
+    private Integer txnSize;
+    
+    /** 是否删除source数据库的相关匹配记录*/
+    private boolean purge = Boolean.TRUE;
+    
+    /***是否归档 false=定时删除**/
+    private boolean archive = Boolean.TRUE;
+    
+    /** progressSize每次归档限制总条数）*/
+    private Integer progressSize = Integer.MAX_VALUE;
+    
+    /**尝试次数**/
+    private Integer retries = 2;
+    
+    /** 每次归档了limit个行记录后的休眠1秒（单位为毫秒）*/
+    private Long sleep = 5 * 1000L;
+    
+    /**归档的表名***/
+    private String srcTblName;
+    
+    /**归档目标表名**/
+    private String desTblName;
+    
+    /**是否clickhouse数据库**/
+    private boolean clickhouseDb;
+    
+    /**
+     * clickhouse分区名
+     */
+    private String  clusterName;
+    
+    /**clickhouse必填**/
+    private String databaseName;
+    
+    /**是否批次执行**/
+    private boolean bulk = true;
+    
+    /**是否执行表优化**/
+    private AnalyzeEnum analyze;
+    
+    /**是否写binlog 添加NO_WRITE_TO_BINLOG参数**/
+    private boolean local;
+    
+    /**是否发送邮件**/
+    private boolean sendEmail;
+    
+    /**邮件接收人,逗号分隔**/
+    private String recipients;
+
 ```
