@@ -3,6 +3,7 @@
       - [【datarchive】数据归档组件](/components/swak-datarchive)
       - [monitor监控组件 TODO](/components/swak-monitor)
       - [distributed lock分布式锁组件](/components/swak-distributedlock)
+      - [License(许可证)组件](/components/swak-license)
       - [swak cache多级缓存组件](/components/swak-extspringcache)
       - [excel导入导出组件](/components/swak-excel)
       - [swak-job任务调度组件](/components/swak-job)
