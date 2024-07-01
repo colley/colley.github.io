@@ -5,7 +5,7 @@
 - @Conditional本身也是一个父注解，从SpringBoot1.0版本开始派生出了大量的子注解；用于Bean的按需加载。
 - @Conditional注解和其所有子注解必须依托于被@Component衍生注解标注的类，即Spring要能扫描到@Conditional衍生注解所在的类，才能做进一步判断。
 - @Conditional衍生注解可以加在类 或 类的方法上；加在类上表示类的所有方法都做条件装配、加在方法上则表示只有当前方法做条件装配。
-### 1. @Conditional源码
+### @Conditional源码
 ```java
 @Target({ElementType.TYPE, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
@@ -19,7 +19,7 @@ public @interface Conditional {
 }
 ```
 @Conditional注解只有一个value参数，类型是：Condition类型的数组；而Condition是一个接口，其表示一个条件判断，内部的matches()方法返回true或false；当所有Condition都成立时，@Conditional的条件判断才成立。
-#### 1.1 Condition接口
+#### Condition接口
 ```java
 @FunctionalInterface
 public interface Condition {
@@ -37,7 +37,7 @@ public interface Condition {
 - context：条件上下文，ConditionContext接口类型，用来获取容器中的信息
 - metadata：用来获取被@Conditional标注的对象上的所有注解信息
 
-#### 1.2 ConditionContext接口
+#### ConditionContext接口
 ```java
 public interface ConditionContext {
 	/**
@@ -65,7 +65,7 @@ public interface ConditionContext {
 }
 ```
 ConditionContext接口中提供了一些常用的方法，用于获取spring容器中的各种信息。
-### 2. @Conditional衍生注解使用
+### @Conditional衍生注解使用
 从SpringBoot1.0版本开始@Conditional派生出了大量的子注解；用于Bean的按需加载。主要包括六大类：
 - Class Conditions
 - Bean Conditions
@@ -73,7 +73,7 @@ ConditionContext接口中提供了一些常用的方法，用于获取spring容�
 - Resource Conditions
 - Web Application Conditions
 - SpEL Expression Conditions
-#### 2.1 Class Conditions
+#### Class Conditions
 包含两个注解：@ConditionalOnClass 和 @ConditionalOnMissingClass。
 - @ConditionalOnClass
   @ConditionalOnClass注解用于判断其value值中的Class类是否都可以使用类加载器加载到，如果都能，则符合条件装配。
@@ -132,14 +132,14 @@ ConditionContext接口中提供了一些常用的方法，用于获取spring容�
 ```
 这里表示，只有当org.aspectj.weaver.Advice类不存在时，才会加载ClassProxyingConfiguration到Spring容器。
 
-#### 2.2 Bean Conditions
+#### Bean Conditions
 包含两个注解：@ConditionalOnBean 和 @ConditionalOnMissingBean。
 - @ConditionalOnBean
   @ConditionalOnBean注解用于判断某些Bean是否都加载到了Spring容器BeanFactory中，如果是的，则符合条件装配。
 - @ConditionalOnMissingBean
   @ConditionalOnMissingBean注解用于判断某些Bean是否都没有加载到Spring容器BeanFactory中，如果是的，则符合条件装配。
 
-#### 2.3 Property Conditions（@ConditionalOnProperty）
+#### Property Conditions（@ConditionalOnProperty）
 
 @ConditionalOnProperty注解依赖于Spring环境参数（Spring Environment property）来做条件装配。
 ```java
@@ -168,7 +168,7 @@ public class SwaggerAutoConfiguration {
     ...
 }
 ```
-#### 2.4 Resource Conditions (@ConditionalOnResource）
+#### Resource Conditions (@ConditionalOnResource）
 @ConditionalOnResource通过判断某些资源是否存在来做条件装配。
 
 使用方式：
@@ -181,7 +181,7 @@ public class BuildInfoAutoConfiguration {
 ```
 这里表示，只有当classpath:META-INF/build-info.properties文件资源存在时，BuildInfoAutoConfiguration才会被加载到Spring容器。
 
-#### 2.5 Web Application Conditions
+#### Web Application Conditions
 包含两个注解：@ConditionalOnWebApplication 和 @ConditionalOnNotWebApplication。
 - @ConditionalOnWebApplication
   @ConditionalOnWebApplication用于判断SpringBoot应用的类型是否为指定Web类型（ANY、SERVLET、REACTIVE）
@@ -230,7 +230,7 @@ public class BuildInfoAutoConfiguration {
 - @ConditionalOnNotWebApplication
   @ConditionalOnNotWebApplication用于判断SpringBoot应用的类型是否不是Web应用。
 
-#### 2.6 SpEL Expression Conditions（ConditionalOnExpression）
+#### SpEL Expression Conditions（ConditionalOnExpression）
 @ConditionalOnExpression通过SpEL Expression来做条件装配。
 
 这种方式做条件装配有个坑：

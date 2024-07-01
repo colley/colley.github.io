@@ -1,10 +1,10 @@
 ## 前言
 Spring事务是指在Spring框架中对于数据库操作的一种支持，它通过对一组数据库操作进行整体控制来保证数据的一致性和完整性。Spring事务可以保证在一组数据库操作执行时，要么所有操作都执行成功，要么所有操作都回滚到之前的状态，从而避免了数据不一致的情况。
 
-### 1. Spring事务实现方式
+### Spring事务实现方式
 Spring事务可以通过编程式事务和声明式事务两种方式来实现。编程式事务需要在代码中手动控制事务的开始、提交和回滚等操作，而声明式事务则是通过在配置文件中声明事务的切入点和通知等信息来自动控制事务的行为。
     
-#### 1.1 Spring编程式事务
+#### Spring编程式事务
 Spring编程式事务需要在代码中获取事务管理器，并通过该事务管理器获取事务对象，然后使用该事务对象来控制事务的开始、提交和回滚等操作。
 - Spring框架提供两种方式来进行编程式事务管理
     - TransactionTemplate.
@@ -58,7 +58,7 @@ PlatformTransactionManager的方式
 如果在转账操作中发生了异常，则会通过transactionManager.rollback(status)回滚事务。
 编程式事务的优点是灵活性高，可以根据具体的业务需求来灵活控制事务的行为。不过缺点是代码冗长，可读性差，而且容易出现错误。
 
-#### 1.2 Spring声明式事务
+#### Spring声明式事务
 Spring声明式事务需要在配置文件中声明事务管理器、事务通知等元素，然后在需要使用事务的方法上添加事务切面的注解即可。
 ```java
 @Target({ElementType.TYPE, ElementType.METHOD})
@@ -85,14 +85,14 @@ public @interface Transactional {
     Class<? extends Throwable>[] noRollbackFor() default {};
 }
 ```
-##### 1.2.1 @Transactional注解应该写在哪
+##### @Transactional注解应该写在哪
 - @Transactional 可以标记在类上面（当前类所有的方法都运用上了事务）
 - @Transactional 标记在方法则只是当前方法运用事务
 - 也可以类和方法上面同时都存在， 如果类和方法都存在@Transactional会以方法的为准。如果方法上面没有@Transactional会以类上面的为准
 
 建议：@Transactional写在方法上面，控制粒度更细， 建议@Transactional写在业务逻辑层上，因为只有业务逻辑层才会有嵌套调用的情况。
 
-### 2. 事务绑定事件
+### 事务绑定事件
 使用@TransactionalEventListener可以在事务提交前后，回滚后等阶段触发某些操作。
 主要用于事务提交前后的操作，比如监控，通知等。
 ```java
@@ -104,7 +104,7 @@ public @interface Transactional {
         }
     }
 ```
-### 3. 事务注解失效以及事项
+### 事务注解失效以及事项
 - @Transactional事务不要滥用。事务会影响数据库的QPS，另外使用事务的敌方需要考虑各方面的回滚方案，包括缓存回滚、搜索引擎、消息补偿、统计修正等。
 - 不要在接口上声明@Transactional，而要在具体类的方法上使用 @Transactional 注解，否则注解可能无效。
 - 不要图省事，将@Transactional放置在类级的声明中，放在类声明，会使得所有方法都有事务。故@Transactional应该放在方法级别，不需要使用事务的方法，就不要放置事务，比如查询方法。否则对性能是有影响的。
@@ -125,7 +125,7 @@ public @interface Transactional {
   代码的异常被catch后并未再次被抛出，说明catch只是做了个对异常的处理，程序依旧往下执行，spring事务认为这是正常的业务逻辑，肯定不会回滚，所以事务失效。
 - SpringBoot项目中使用多数据源切换时，TransactionManager类中加载的是否是当前数据源。
 
-### 4. Spring事务传播机制
+### Spring事务传播机制
 Spring事务传播机制是指在多个事务操作发生时，如何管理这些操作之间的事务关系。Spring事务传播机制可以通过Propagation枚举类中的不同值来指定，共包括七种不同的传播行为。
 具体来说，Spring事务传播机制包括以下七种：
 - REQUIRED：如果当前没有事务，则创建一个新的事务；如果当前已经存在事务，则加入该事务。这是默认的传播行为。

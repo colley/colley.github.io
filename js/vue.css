@@ -625,11 +625,19 @@ body {
     color: var(--theme-color, #42b983);
     font-weight: 600;
 }
-.app-sub-sidebar li::before {
-    content: '-';
-    padding-right: 4px;
-    float: left;
+
+.sidebar-nav ul li.active {
+    background-color: #fff;
 }
+
+.sidebar li.active > a {
+    background-color: #eee;
+}
+
+.sidebar {
+    width: 17rem;
+}
+
 /* markdown content found on pages */
 .markdown-section h1,
 .markdown-section h2,

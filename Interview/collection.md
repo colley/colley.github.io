@@ -10,7 +10,7 @@ Map接口没有继承自Collection接口，因为Map表示的是关联式容器�
 
 ![输入图片说明](images/image1.png)
 
-## 1、ArrayList
+## ArrayList
 ArrayList实现了List接口，是顺序容器，即元素存放的数据与放进去的顺序相同，允许放入null元素，底层通过数组实现。除该类未实现同步外，其余跟Vector大致相同。每个ArrayList都有一个容量（capacity），表示底层数组的实际大小，容器内存储元素的个数不能多于当前容量。当向容器中添加元素时，如果容量不足，容器会自动增大底层数组的大小。前面已经提过，Java泛型只是编译器提供的语法糖，所以这里的数组是一个Object数组，以便能够容纳任何类型的对象。
 
 size(), isEmpty(), get(), set()方法均能在常数时间内完成，add()方法的时间开销跟插入位置有关，addAll()方法的时间开销跟添加元素的个数成正比。其余方法大都是线性时间。
@@ -147,7 +147,7 @@ public void testRemove7(){
     System.out.println(strings);
 }
 ```
-## 2、Map
+## Map
 
 高度注意 Map 类集合 K-V 能不能存储 null 值的情况，如下表格：
 

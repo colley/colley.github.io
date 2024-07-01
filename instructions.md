@@ -4,7 +4,7 @@
 
 SWAK架构基于 Spring Boot2构建微服务架构，集成通用的基础技术模块和业务模块，快速搭建可直接部署。统一的接口出入参和公共规范，支持多环境多机房，支持多业务多场景扩展点，支持容错，限流，隔离，兜底，支持接口监控业务监控。集成通用工具类，支持白名单，穿越预演能力。
 
-### Latest Version:
+### Latest Version
  [![Maven Central](https://img.shields.io/maven-central/v/io.gitee.mcolley/swak-core.svg)](https://search.maven.org/search?q=g:io.gitee.mcolley%20a:swak*)
 
 ```xml

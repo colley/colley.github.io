@@ -149,6 +149,9 @@ CREATE TABLE `easy_job_lock` (
      PRIMARY KEY (`lock_name`,`app_name`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='job锁表';
 
+INSERT INTO easy_job_lock (`app_name`, `lock_name`) VALUES ('appname', 'schedule_lock');
+INSERT INTO easy_job_lock (`app_name`, `lock_name`) VALUES ('appname', 'register_lock');
+
  ```
 
 ## 历史版本功能

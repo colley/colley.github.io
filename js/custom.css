@@ -1,0 +1,141 @@
+/* sidebar */
+.sidebar {
+    color: #364149;
+}
+.sidebar ul li.active > a {
+    border-right: 2px solid;
+    color: #42b983;
+    color: var(--theme-color, #42b983);
+    font-weight: 600;
+}
+
+.sidebar-nav ul li.active {
+    background-color: #fff;
+}
+
+.sidebar li.active > a {
+    background-color: #eee;
+}
+
+.sidebar {
+    width: 17rem;
+}
+
+.markdown-section code,
+.markdown-section pre,
+.markdown-section output::after {
+    font-family: 'Roboto Mono', Monaco, courier, monospace;
+}
+.markdown-section code,
+.markdown-section pre {
+    background-color: #f8f8f8;
+}
+.markdown-section pre,
+.markdown-section output {
+    margin: 1.2em 0;
+    position: relative;
+}
+.markdown-section pre > code,
+.markdown-section output {
+    border-radius: 2px;
+    display: block;
+}
+.markdown-section pre > code,
+.markdown-section output::after {
+    -moz-osx-font-smoothing: initial;
+    -webkit-font-smoothing: initial;
+}
+.markdown-section code {
+    border-radius: 2px;
+    color: #e96900;
+    margin: 0 2px;
+    padding: 3px 5px;
+    white-space: pre-wrap;
+}
+.markdown-section > :not(h1):not(h2):not(h3):not(h4):not(h5):not(h6) code {
+    font-size: 0.8rem;
+}
+.markdown-section pre {
+    padding: 0 1.4rem;
+    line-height: 1.5rem;
+    overflow: auto;
+    word-wrap: normal;
+}
+.markdown-section pre > code {
+    color: #525252;
+    font-size: 0.8rem;
+    padding: 2.2em 5px;
+    line-height: inherit;
+    margin: 0 2px;
+    max-width: inherit;
+    overflow: inherit;
+    white-space: inherit;
+}
+
+.custom-block .custom-block-title {
+    font-weight: 600;
+    margin-bottom: -.4rem
+}
+
+.custom-block.danger,.custom-block.tip,.custom-block.warning {
+    padding: .1rem 1.5rem;
+    border-left-width: .5rem;
+    border-left-style: solid;
+    margin: 1rem 0
+}
+
+.custom-block.tip {
+    background-color: #f3f5f7;
+    border-color: #42b983;
+}
+
+.custom-block.warning {
+    background-color: rgba(255,229,100,.3);
+    border-color: #e7c000;
+    color: #6b5900
+}
+
+.custom-block.warning .custom-block-title {
+    color: #b29400
+}
+
+.custom-block.warning a {
+    color: #2c3e50
+}
+
+.custom-block.danger {
+    background-color: #ffe6e6;
+    border-color: #c00;
+    color: #4d0000
+}
+
+.custom-block.danger .custom-block-title {
+    color: #900
+}
+
+.custom-block.danger a {
+    color: #2c3e50
+}
+
+.custom-block.details {
+    display: block;
+    position: relative;
+    border-radius: 2px;
+    margin: 1.6em 0;
+    padding: 1.6em;
+    background-color: #eee
+}
+
+.custom-block.details h4 {
+    margin-top: 0
+}
+
+.custom-block.details figure:last-child,.custom-block.details p:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0
+}
+
+.custom-block.details summary {
+    outline: none;
+    cursor: pointer
+}

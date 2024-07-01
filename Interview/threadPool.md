@@ -1,11 +1,11 @@
 ## 前言
 线程池是一种多线程开发的处理方式，线程池可以方便得对线程进行创建，执行、销毁和管理等操作。主要用来解决需要异步或并发执行任务的程序。
-## 1. 线程池的作用
+## 线程池的作用
 - 降低资源消耗。通过重复利用已创建的线程降低线程创建和销毁造成的消耗。
 - 提高响应速度。当任务到达时，任务可以不需要等到线程创建就能立即执行。
 - 提高线程的可管理性。线程是稀缺资源，如果无限制地创建，不仅会消耗系统资源，
 还会降低系统的稳定性，使用线程池可以进行统一分配、调优和监控。但是，要做到合理利用线程池，必须对其实现原理了如指掌。
-## 2. 线程池核心组件图解
+## 线程池核心组件图解
 
 看源码之前，先了解一下该组件 最主要的几个 接口、抽象类和实现类的结构关系。
 
@@ -16,11 +16,11 @@
 
 另外还有一个常见的工具类 Executors，里面为开发者封装了一些可以直接拿来用的线程池。
 
-## 3. 源码赏析
+## 源码赏析
 
 话不多说，直接上源码。（这里只看最主要的代码部分）
 
-### 4. Executor 和 ExecutorService 接口
+### Executor 和 ExecutorService 接口
 
 ```java
 public interface Executor {
@@ -50,7 +50,7 @@ public interface ExecutorService extends Executor {
 }
 ```
 
-### 5. AbstractExecutorService 抽象类
+### AbstractExecutorService 抽象类
 
 ```java
 /**
@@ -86,7 +86,7 @@ public abstract class AbstractExecutorService implements ExecutorService {
 }
 ```
 
-### 6. ThreadPoolExecutor
+### ThreadPoolExecutor
 
 ```java
 public class ThreadPoolExecutor extends AbstractExecutorService {
@@ -227,7 +227,7 @@ ThreadPoolExecutor 中的 execute()方法 执行 Runnable 任务 的流程逻辑
 
 ![线程池流程.png](images/线程池流程.png)
 
-### 7. 工具类 Executors
+### 工具类 Executors
 
 看类名也知道，它最主要的作用就是提供 static 的工具方法，为开发者提供各种封装好的 具有各自特性的线程池。
 
@@ -267,28 +267,28 @@ public class Executors {
 }
 ```
 
-## 8. 任务队列（BlockingQueue）
-### 8.1 直接提交的任务队列（SynchronousQueue）
+## 任务队列（BlockingQueue）
+### 直接提交的任务队列（SynchronousQueue）
 - SynchronousQueue没有容量。
 -提交的任务不会被真实的保存在队列中，而总是将新任务提交给线程执行。如果没有空闲的线程，则尝试创建新的线程。如果线程数大于最大值maximumPoolSize，则执行拒绝策略。
 
-### 8.2 有界的任务队列（ArrayBlockingQueue）
+### 有界的任务队列（ArrayBlockingQueue）
 - 创建队列时，指定队列的最大容量。
 - 若有新的任务要执行，如果线程池中的线程数小于corePoolSize，则会优先创建新的线程。若大于corePoolSize，则会将新任务加入到等待队列中。
 - 若等待队列已满，无法加入。如果总线程数不大于线程数最大值maximumPoolSize，则创建新的线程执行任务。若大于maximumPoolSize，则执行拒绝策略。
 
-### 8.3 无界的任务队列（LinkedBlockingQueue）
+### 无界的任务队列（LinkedBlockingQueue）
 - 与有界队列相比，除非系统资源耗尽，否则不存在任务入队失败的情况。
 - 若有新的任务要执行，如果线程池中的线程数小于corePoolSize，线程池会创建新的线程。若大于corePoolSize，此时又没有空闲的线程资源，则任务直接进入等待队列。
 - 当线程池中的线程数达到corePoolSize后，线程池不会创建新的线程。
 - 若任务创建和处理的速度差异很大，无界队列将保持快速增长，直到耗尽系统内存。
 - 使用无界队列将导致在所有 corePoolSize 线程都忙时，新任务在队列中等待。这样，创建的线程就不会超过 corePoolSize（因此，maximumPoolSize 的值也就无效了）。当每个任务完全独立于其他任务，即任务执行互不影响时，适合于使用无界队列；例如，在 Web 页服务器中。这种排队可用于处理瞬态突发请求，当命令以超过队列所能处理的平均数连续到达时，此策略允许无界线程具有增长的可能性。
 
-### 8.4 优先任务队列（PriorityBlockingQueue）
+### 优先任务队列（PriorityBlockingQueue）
 - 带有执行优先级的队列。是一个特殊的无界队列。
 - ArrayBlockingQueue和LinkedBlockingQueue都是按照先进先出算法来处理任务。而PriorityBlockingQueue可根据任务自身的优先级顺序先后执行（总是确保高优先级的任务先执行）。
 
-## 9. 线程池参数配置
+## 线程池参数配置
 - 线程池的默认值
   - corePoolSize=1
   - queueCapacity=Integer.MAX_VALUE
@@ -304,7 +304,7 @@ public class Executors {
 - 监控和优化：可以通过监控线程池的运行状况，比如任务的平均响应时间、任务的完成数量等指标来优化线程池的配置，从而提高吞吐量。
   
 
-## 10. 线程池的使用场景
+## 线程池的使用场景
 
 - 并发任务处理：线程池可以用于处理并发的任务，例如处理请求、批量处理数据、并行计算等。通过线程池，可以管理和复用线程，提高任务的执行效率。
 - 异步任务执行：线程池可以用于执行异步任务，将任务提交给线程池后，可以立即返回并继续执行后续代码，不必等待任务完成。适用于需要在后台执行耗时任务，同时不阻塞主线程的场景。
@@ -313,7 +313,7 @@ public class Executors {
 - 并行计算：线程池可以用于并行计算，将计算任务分解为多个子任务，分配给线程池中的线程并行执行，加速计算过程。适用于需要高性能并行计算的场景，如数据处理、图像处理等。
 - 长时间运行的任务：线程池适用于长时间运行的任务，可以控制线程的生命周期，避免频繁创建和销毁线程的开销，提高系统的稳定性和性能。
 
-## 11. ForkJoin框架
+## ForkJoin框架
 
 JDK1.7引入了ForkJoin框架。ForkJoin框架允许其他线程向其提交任务，并将任务拆分成粒度更细的子任务，这些子任务由ForkJoin框架内部的工作线程来并行执行，并且这些工作线程之间可以互相窃取任务执行。
 
@@ -322,7 +322,7 @@ ForkJoin框架主要包含两部分：
 - 分治任务的线程池ForkJoinPool类；
 - 分治任务ForkJoinTask类。
 
-### 11.1 ForkJoinPool
+### ForkJoinPool
 
 ForkJoinPool是用于执行ForkJoinTask任务的执行池，继承了AbstractExecutorService类。ForkJoinPool的构造函数有多个，此处我们介绍其中参数最全的一个，其实现如下：
 ```java

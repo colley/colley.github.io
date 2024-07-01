@@ -136,7 +136,7 @@ Redis 是分布式缓存的首选。下图是Redis的集群架构样例 。
 ## Spring Cache简介
 Spring Cache是Spring框架提供的一种缓存抽象，它可以与各种缓存提供者集成，包括内存缓存、分布式缓存等。使用Spring Cache可以简化缓存的使用和管理，提高系统的性能和可扩展性。
 
-### 1. 结合Spring Cache扩展多级缓存
+### 结合Spring Cache扩展多级缓存
 ```xml
  <dependency>
     <groupId>io.gitee.mcolley</groupId>
@@ -171,13 +171,13 @@ public @interface ExtCacheable {
     
     ....
 ```
-### 2. 功能特性
+### 功能特性
 - @ExtCacheable支持指定redis操作缓存
 - @ExtCacheable支持对具体的key设置过期时间（对比：@Cacheable只支持对命名空间级别设置过期时间）
 - @ExtCacheable支持redis缓存、支持caffeine缓存、ehcache，支持多级缓存（对比：@Cacheable不全支持）
 - @ExtCacheable对@Cacheable保持兼容
 
-### 3. 使用例子
+### 使用例子
 #### 示例一
 默认支持ehcache缓存，需要ehcache.xml中配置对应的cache
 

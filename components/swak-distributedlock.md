@@ -8,7 +8,7 @@ swak-distributed-lock集成四种不同的lock方式。
             <artifactId>swak-distributed-lock-boot-starter</artifactId>
         </dependency>
 ```
-## 三种不同lock方式
+## 四种种不同lock方式
 - LocalSyncLock 本地锁，不支持分布式。
 - ZookeeperLock 基于Zookeeper的方式实现的分布式锁。
 - RedissonLock 基于Redisson的方式实现的分布式锁。
