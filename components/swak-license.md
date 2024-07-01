@@ -201,7 +201,9 @@ static final String publicKeyPath = "/license/rsa_public.key";
 }
 ```
 - 验证扩展信息
+
 ```java
+
 @Resource
 LicenseVerifyService licenseVerifyService;
 License license = licenseVerifyService.verify();
@@ -227,4 +229,5 @@ public static void validate(final License content) throws LicenseValidationExcep
         throw new LicenseValidationException(new DefaultMessage(BasicErrCode.SWAK_LICENSE.getMsg()));
     }
 }
+    
 ```
