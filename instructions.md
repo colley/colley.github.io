@@ -42,8 +42,8 @@ ErrorCode由通用Code和私有Code组成，支持国际化。
 
 - ResultMessages.properties国际配置
 列名+枚举name(),例子如下:
-```properties
 
+```properties
 #ResultMessages_zh_CN.properties
 com.swak.common.enums.BasicErrCode.SUCCESS=请求成功~
 com.swak.common.enums.BasicErrCode.SWAK_OPERA_REPEAT=你点击的太快啦,稍后再试~
@@ -53,6 +53,7 @@ com.swak.common.enums.BasicErrCode.SUCCESS=OK
 com.swak.common.enums.BasicErrCode.SWAK_OPERA_REPEAT=You clicked too fast, please try again later~
 
 ```
+
 ResultName | name | Code     | Message                             |备注
   ------ |-------| ----|-------------------------------------| ----
 BasicErrCode | SUCCESS | 0 | OK                                  |
